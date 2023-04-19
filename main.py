@@ -24,7 +24,7 @@ def main(inFILE):
     image = cv2.imread(directory + "/" + inFILE, cv2.IMREAD_COLOR)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     height, width, _ = image.shape
-    num_cols = 300
+    num_cols = 200
     num_rows = int(num_cols * height / width)
     while True:
         cell_width = int(width / num_cols)
