@@ -25,25 +25,20 @@ def main(inFILE):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     height, width, _ = image.shape
     num_cols = 200
-    num_rows = int(num_cols * width / height / 1.2)
-    while True:
-        cell_width = int(width / num_cols)
-        cell_height = int(height / num_rows)
-        if cell_height > 0 and cell_width > 0:
-            break
-        num_cols = num_cols - 1
-        num_rows = int(num_cols * width / height / 1.2)
-        if num_cols <= 0:
-            cell_width = 6  # chieu rong 1 cell
-            cell_height = 12  # chieu cao 1 cell
-            num_cols = int(width / cell_width)
-            num_rows = int(height / cell_height)
-            break
+    cell_width = width / num_cols
+    cell_height = scale * cell_width
+    num_rows = int(height / cell_height)
+    if num_cols > width or num_rows > height:
+        print("Too many columns or rows. Use default setting")
+        cell_width = 6
+        cell_height = 12
+        num_cols = int(width / cell_width)
+        num_rows = int(height / cell_height)
     # lay size cua ki tu tuong trung cho ngon ngu render
     char_width, char_height = font.getsize(char_list[0])
     # size image output
     out_width = char_width * num_cols
-    out_height = scale * char_height * num_rows
+    out_height = int(scale * char_height * num_rows)
     # image output
     out_image = Image.new("RGB", (out_width, out_height), bg_code)
     draw = ImageDraw.Draw(out_image)
