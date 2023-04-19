@@ -28,3 +28,12 @@
 <img src = "https://github.com/nxhawk/ASCII_convert/blob/master/Image_result1/sonGoku/sonGoKu_ASCII.jpg"/>
 
 
+### INPUT
+
+<img src = "https://github.com/nxhawk/ASCII_convert/blob/master/image/do.jpg"/>
+
+### OUTPUT
+
+<img src = "https://github.com/nxhawk/ASCII_convert/blob/master/Image_result1/do/do_ASCII.jpg"/>
+
+
