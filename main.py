@@ -17,16 +17,28 @@ def main(inFILE):
     outFILE = folder + '\\' + \
         inFILE.split(".")[0] + "_ASCII." + inFILE.split(".")[1]
     outTXT = folder + '\\' + inFILE.split(".")[0] + ".txt"
-
+    print("Processing {}".format(inFILE))
     bg_code = (255, 255, 255)
     num_chars = len(char_list)
-    cell_width = 6  # chieu rong 1 cell
-    cell_height = 12  # chieu cao 1 cell
+
     image = cv2.imread(directory + "/" + inFILE, cv2.IMREAD_COLOR)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     height, width, _ = image.shape
-    num_cols = int(width / cell_width)
-    num_rows = int(height / cell_height)
+    num_cols = 100
+    num_rows = int(num_cols * height / width)
+    while True:
+        cell_width = int(width / num_cols)
+        cell_height = int(height / num_rows)
+        if cell_height > 0 and cell_width > 0:
+            break
+        num_cols = num_cols - 5
+        num_rows = int(num_cols * height / width)
+        if num_cols <= 0:
+            cell_width = 6  # chieu rong 1 cell
+            cell_height = 12  # chieu cao 1 cell
+            num_cols = int(width / cell_width)
+            num_rows = int(height / cell_height)
+            break
 
     # lay size cua ki tu tuong trung cho ngon ngu render
     char_width, char_height = font.getsize(char_list[0])
@@ -59,6 +71,7 @@ def main(inFILE):
         for R, G, B in allChar:
             f.write(str(R) + " " + str(G) + " " + str(B) + "\n")
     out_image.save(outFILE)
+    print("DONE process {}".format(inFILE))
 
 
 if __name__ == '__main__':
@@ -67,5 +80,6 @@ if __name__ == '__main__':
 
     for file in os.listdir(directory):
         if os.path.isfile(directory+'/'+file):
-            thread = threading.Thread(target=main, args=(file,))
-            thread.start()
+            main(file)
+            # thread = threading.Thread(target=main, args=(file,))
+            # thread.start()
