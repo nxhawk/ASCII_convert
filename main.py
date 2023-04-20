@@ -57,6 +57,7 @@ def main(inFILE):
                     partial_avg_color.astype(np.int32).tolist())
                 char = char_list[min(
                     int(np.mean(partial_image) * num_chars / 255), num_chars - 1)]
+
                 draw.text((j * char_width, i * char_height),
                           char, fill=partial_avg_color, font=font)
                 f.write(char)
